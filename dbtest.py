@@ -24,12 +24,13 @@ for id in result:
     definitions = cursor2.fetchall()
     deflist2 = []
     for term in definitions:
-        if str(term)[2:-3] != '':
+        if str(term)[2:-3] != "":
             deflist2.append(str(term)[2:-3])
     deflist.append(deflist2)
 
-print(f"{word} has the following pronunciation(s). Please select the number of the entry/entries you'd like to add (separated by spaces): ")
-    
+print(
+    f"{word} has the following pronunciation(s). Please select the number of the entry/entries you'd like to add (separated by spaces): "
+)
 
 
 for id in idlist:
@@ -38,32 +39,33 @@ for id in idlist:
 
 valid_choices = set()
 for count, pronunciation in enumerate(pinlist):
-    print(f"{count}. {pronunciation}: ", end='')
+    print(f"{count}. {pronunciation}: ", end="")
     for term in deflist[count]:
         if term != deflist[count][-1]:
-            print(f"{term}; ", end='') 
+            print(f"{term}; ", end="")
         else:
             print(f"{term}")
     valid_choices.add(count)
-
-
-
 
 
 isRunning = True
 while isRunning:
     userchoice = input()
     added_numbers = []
-    if len(userchoice.strip())> 0:
+    if len(userchoice.strip()) > 0:
         user_split = re.split(r"\s+", userchoice)
-        user_split = list(filter(('').__ne__, user_split))
+        user_split = list(filter(("").__ne__, user_split))
         for count, selection in enumerate(user_split):
             search = re.match(r"\d+", selection)
             if search is None:
-                print("Please enter all of your selections again, ensuring they are separated by spaces.")
+                print(
+                    "Please enter all of your selections again, ensuring they are separated by spaces."
+                )
                 break
             elif int(search.group()) not in valid_choices:
-                print(f"{int(search.group())} is not a valid selection for the given entries. Please enter your selections again.")
+                print(
+                    f"{int(search.group())} is not a valid selection for the given entries. Please enter your selections again."
+                )
                 break
             else:
                 added_numbers.append(int(search.group()))
@@ -71,14 +73,3 @@ while isRunning:
                 isRunning = False
     for number in added_numbers:
         print(f"Added the following terms: {word} {pinlist[number]}.")
-        
-    
-
-
-
-
-
-
-
-
-    
